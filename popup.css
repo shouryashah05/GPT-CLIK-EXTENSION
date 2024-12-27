@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #29292a;
+    color: rgb(255, 255, 255);
+}
+  
+.container {
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    
+}
+
+.headercombo{
+    display: flex;
+    margin-bottom: -15px;
+    
+    
+}
+
+h1 {
+    font-size: 22px;
+    font-family: 'Chakra Petch', sans-serif;
+    margin-top: 3px;
+    color: #ffffff;
+}
+
+.logo img{
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+    margin-left: 80px;
+    
+}
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}
+
+.github-repo{
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(150, 152, 152);
+}
+
+.github-repo img{
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    margin-top: 1px;
+    align-items: center;
+    margin-bottom: -2px;
+}
+
+.open-gpt{
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 25px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(150, 152, 152);
+}
+
+.open-gpt img{
+    width: 20px;
+    height: 20px;
+    margin-right: 7px;
+    align-items: center;
+    margin-bottom: -5px;
+
+}
