@@ -16,8 +16,6 @@ body {
 .headercombo{
     display: flex;
     margin-bottom: -15px;
-    
-    
 }
 
 h1 {
@@ -38,6 +36,7 @@ h1 {
     display: flex;
     justify-content: space-evenly;
     margin-top: 30px;
+    margin-bottom: -10px;
 }
 
 .github-repo{
@@ -90,4 +89,124 @@ h1 {
     align-items: center;
     margin-bottom: -5px;
 
+}
+
+#applyButton{
+    background-color: #000000;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    height: 30px;
+    margin-bottom: -13px;
+    margin-top: 21px;
+    border-radius: 10px;
+    margin-left: 130px;
+    cursor: pointer;
+}
+
+/* Style for the container of the radio buttons */
+.feature-toggle {
+    margin-top: 20px;
+    text-align: left;
+
+  }
+
+  .feature-toggle p{
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+  
+  /* Style for the labels */
+  .feature-toggle label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+ 
+  
+  /* Custom radio button style */
+  .feature-toggle input[type="radio"] + span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    vertical-align: middle;
+    position: relative;
+  }
+  
+  /* Style for the checked state */
+  .feature-toggle input[type="radio"]:checked + span::before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Style for the container of the checkbox */
+.dropdown-toggle {
+  margin-top: 20px;
+  text-align: left;
+  margin-left: 40px;
+}
+
+/* Style for the label */
+.dropdown-toggle label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: rgb(219, 218, 218);
+  cursor: pointer;
+}
+
+/* Hide the default checkbox */
+.dropdown-toggle input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom checkbox style */
+.dropdown-toggle input[type="checkbox"] + span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 7px;
+  border: 2px solid rgb(219, 218, 218);;
+  border-radius: 3px;
+  position: relative;
+}
+
+/* Style for the checked state */
+.dropdown-toggle input[type="checkbox"]:checked + span::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#dropdownApplyButton{
+    background-color: #000000;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    height: 30px;
+    margin-bottom: -7px;
+    margin-top: 11px;
+    border-radius: 10px;
+    margin-left: 80px;
+    cursor: pointer;
 }
