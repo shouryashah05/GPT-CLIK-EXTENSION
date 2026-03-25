@@ -16,6 +16,10 @@ let selectedAI = null;
 let customChatEnabled = false;
 
 document.addEventListener("DOMContentLoaded", async () => {
+  requestAnimationFrame(() => {
+    document.body.classList.add("is-ready");
+  });
+
   const theme = await initializeTheme();
   renderThemeIcon(theme);
 
@@ -52,15 +56,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   aiSelectionButton.addEventListener("click", () => {
-    window.location.href = "ai-selection.html";
+    navigateTo("ai-selection.html");
   });
 
   settingsButton.addEventListener("click", () => {
-    window.location.href = "settings.html";
+    navigateTo("settings.html");
   });
 
   homeLogoButton.addEventListener("click", () => {
-    window.location.href = "popup.html";
+    navigateTo("popup.html");
   });
 });
 
@@ -99,4 +103,11 @@ function renderModeInteractivity() {
     button.disabled = customChatEnabled;
     button.classList.toggle("is-disabled", customChatEnabled);
   }
+}
+
+function navigateTo(url) {
+  document.body.classList.add("is-leaving");
+  window.setTimeout(() => {
+    window.location.href = url;
+  }, 120);
 }

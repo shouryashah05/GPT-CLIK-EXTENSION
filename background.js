@@ -2,16 +2,19 @@ import {
   AI_LABELS,
   INTERACTION_MODES,
   MODE_LABELS,
+  RESTRICTED_SOURCE_HOST_KEYWORDS,
   STORAGE_KEYS
 } from "./shared/constants.js";
 import { contextMenuItemToProvider, getAiTarget } from "./shared/ai-targets.js";
-import { ensureDefaults, getPreferences } from "./shared/storage.js";
+import { ensureDefaults, getPreferences, updatePreference } from "./shared/storage.js";
 
 const CONTEXT_SELECTION = ["selection"];
 
 const MENU_IDS = {
   singleAction: "clikgpt_action",
   parent: "clikgpt_parent",
+  showInstant: "clikgpt_show_instant",
+  showPasteEdit: "clikgpt_show_paste_edit",
   chatgpt: "clikgpt_ai_chatgpt",
   claude: "clikgpt_ai_claude",
   gemini: "clikgpt_ai_gemini"
@@ -33,7 +36,7 @@ chrome.runtime.onStartup.addListener(async () => {
 });
 
 chrome.storage.onChanged.addListener(async (changes, areaName) => {
-  if (areaName !== "sync") {
+  if (areaName !== "sync" && areaName !== "local") {
     return;
   }
 
@@ -71,6 +74,10 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
     return;
   }
 
+  if (isRestrictedSourceUrl(info.pageUrl || info.frameUrl || "")) {
+    return;
+  }
+
   const preferences = await getPreferences();
 
   // Saved chat mode takes priority over any menu state.
@@ -82,6 +89,16 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
   if (info.menuItemId === MENU_IDS.singleAction) {
     const autoSend = preferences[STORAGE_KEYS.selectedMode] === INTERACTION_MODES.instant;
     await openAiWithText(preferences[STORAGE_KEYS.selectedAI], selectedText, autoSend);
+    return;
+  }
+
+  if (info.menuItemId === MENU_IDS.showInstant) {
+    await openAiWithText(preferences[STORAGE_KEYS.selectedAI], selectedText, true);
+    return;
+  }
+
+  if (info.menuItemId === MENU_IDS.showPasteEdit) {
+    await openAiWithText(preferences[STORAGE_KEYS.selectedAI], selectedText, false);
     return;
   }
 
@@ -133,6 +150,9 @@ async function rebuildContextMenus(preferences) {
   const selectedMode = preferences[STORAGE_KEYS.selectedMode];
 
   if (selectedMode === INTERACTION_MODES.showMenu) {
+    const selectedAI = preferences[STORAGE_KEYS.selectedAI];
+    const selectedAiLabel = AI_LABELS[selectedAI] || "ChatGPT";
+
     await createContextMenu({
       id: MENU_IDS.parent,
       title: "CLIK-GPT",
@@ -140,23 +160,16 @@ async function rebuildContextMenus(preferences) {
     });
 
     await createContextMenu({
-      id: MENU_IDS.chatgpt,
+      id: MENU_IDS.showInstant,
       parentId: MENU_IDS.parent,
-      title: "Ask in ChatGPT",
+      title: `Instant Ask (${selectedAiLabel})`,
       contexts: CONTEXT_SELECTION
     });
 
     await createContextMenu({
-      id: MENU_IDS.claude,
+      id: MENU_IDS.showPasteEdit,
       parentId: MENU_IDS.parent,
-      title: "Ask in Claude",
-      contexts: CONTEXT_SELECTION
-    });
-
-    await createContextMenu({
-      id: MENU_IDS.gemini,
-      parentId: MENU_IDS.parent,
-      title: "Ask in Gemini",
+      title: `Paste & Edit (${selectedAiLabel})`,
       contexts: CONTEXT_SELECTION
     });
 
@@ -186,9 +199,13 @@ async function openAiWithText(provider, text, autoSend) {
 }
 
 async function openSavedChatWithText(preferences, text) {
-  const customChatUrl = preferences[STORAGE_KEYS.customChatUrl];
+  const customChatUrl = sanitizeSupportedChatUrl(preferences[STORAGE_KEYS.customChatUrl]);
   if (!customChatUrl) {
-    // If mode is enabled but URL is not set, open settings for quick recovery.
+    // If mode is enabled but URL is invalid or not set, recover safely.
+    await updatePreference({
+      [STORAGE_KEYS.customChatEnabled]: false,
+      [STORAGE_KEYS.customChatUrl]: ""
+    });
     await chrome.tabs.create({ url: chrome.runtime.getURL("settings.html") });
     return;
   }
@@ -247,6 +264,10 @@ async function getSelectedTextFromActiveTab() {
     return "";
   }
 
+  if (isRestrictedSourceUrl(tab.url || "")) {
+    return "";
+  }
+
   try {
     const [result] = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
@@ -258,6 +279,24 @@ async function getSelectedTextFromActiveTab() {
           (activeElement.tagName === "TEXTAREA" || activeElement.tagName === "INPUT")
         ) {
           const input = activeElement;
+          const type = (input.type || "").toLowerCase();
+          const name = (input.name || "").toLowerCase();
+          const id = (input.id || "").toLowerCase();
+
+          if (
+            type === "password" ||
+            type === "email" ||
+            type === "tel" ||
+            name.includes("token") ||
+            name.includes("secret") ||
+            name.includes("password") ||
+            id.includes("token") ||
+            id.includes("secret") ||
+            id.includes("password")
+          ) {
+            return "";
+          }
+
           const value = input.value || "";
           if (
             typeof input.selectionStart === "number" &&
@@ -337,6 +376,35 @@ function isSavedChatModeEnabled(preferences) {
   return (
     Boolean(preferences[STORAGE_KEYS.customChatEnabled])
   );
+}
+
+function sanitizeSupportedChatUrl(rawUrl) {
+  try {
+    const parsed = new URL((rawUrl || "").trim());
+    const isHttps = parsed.protocol === "https:";
+    const isAllowedHost =
+      parsed.hostname === "chatgpt.com" ||
+      parsed.hostname === "chat.openai.com" ||
+      parsed.hostname === "claude.ai" ||
+      parsed.hostname === "gemini.google.com";
+
+    if (!isHttps || !isAllowedHost) {
+      return "";
+    }
+
+    return parsed.toString();
+  } catch (error) {
+    return "";
+  }
+}
+
+function isRestrictedSourceUrl(rawUrl) {
+  try {
+    const host = new URL(rawUrl).hostname.toLowerCase();
+    return RESTRICTED_SOURCE_HOST_KEYWORDS.some((keyword) => host.includes(keyword));
+  } catch (error) {
+    return false;
+  }
 }
 
 function normalizeUrl(rawUrl) {

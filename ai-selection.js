@@ -4,6 +4,7 @@ import { initializeTheme, toggleTheme } from "./shared/theme.js";
 
 const themeToggleButton = document.getElementById("themeToggle");
 const backButton = document.getElementById("backButton");
+const settingsButton = document.getElementById("settingsButton");
 const homeLogoButton = document.getElementById("homeLogoButton");
 const aiButtons = Array.from(document.querySelectorAll("[data-ai]"));
 const selectionState = document.getElementById("selectionState");
@@ -11,6 +12,10 @@ const selectionState = document.getElementById("selectionState");
 let selectedAI = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
+  requestAnimationFrame(() => {
+    document.body.classList.add("is-ready");
+  });
+
   const theme = await initializeTheme();
   renderThemeIcon(theme);
 
@@ -26,11 +31,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   backButton.addEventListener("click", () => {
-    window.location.href = "popup.html";
+    navigateTo("popup.html");
+  });
+
+  settingsButton.addEventListener("click", () => {
+    navigateTo("settings.html");
   });
 
   homeLogoButton.addEventListener("click", () => {
-    window.location.href = "popup.html";
+    navigateTo("popup.html");
   });
 
   for (const button of aiButtons) {
@@ -71,4 +80,11 @@ async function notifyMenuRefresh() {
   } catch (error) {
     // Ignore transient service worker wake-up errors.
   }
+}
+
+function navigateTo(url) {
+  document.body.classList.add("is-leaving");
+  window.setTimeout(() => {
+    window.location.href = url;
+  }, 120);
 }

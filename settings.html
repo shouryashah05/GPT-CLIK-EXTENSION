@@ -10,7 +10,7 @@
   <body class="page-shell p-4">
     <main class="w-full space-y-4">
       <header class="surface-card flex items-center justify-between p-3">
-        <button id="homeLogoButton" class="brand-home" type="button" aria-label="Go to main page">
+        <button id="homeLogoButton" class="brand-home" type="button" aria-label="Go to main page" title="Go to home">
           <img src="icons/Group 8999.png" alt="CLIK-GPT" class="h-9 w-9 rounded-lg" />
           <div class="min-w-0">
             <h1 class="text-base font-semibold tracking-tight">Settings</h1>
@@ -18,8 +18,8 @@
           </div>
         </button>
         <div class="flex items-center gap-2">
-          <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme"></button>
-          <button id="backButton" class="icon-btn" type="button" aria-label="Back to popup">
+          <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme" title="Toggle theme"></button>
+          <button id="backButton" class="icon-btn" type="button" aria-label="Back to popup" title="Back to popup">
             <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
           </button>
         </div>
@@ -33,7 +33,7 @@
           <p class="text-base font-semibold">Command + Shift + L <span class="subtle-text">(macOS)</span></p>
         </div>
 
-        <button id="shortcutButton" class="primary-btn mt-3" type="button">Change Shortcut</button>
+        <button id="shortcutButton" class="primary-btn mt-3" type="button" title="Open Chrome shortcut settings">Change Shortcut</button>
         <p class="subtle-text mt-2 text-xs">
           Due to Chrome security policies, shortcuts must be configured via Chrome settings.
         </p>
@@ -47,7 +47,7 @@
               <p class="text-sm font-medium">Use a specific chat URL</p>
               <p class="subtle-text text-xs">When enabled, CLIK-GPT always uses this chat thread.</p>
             </div>
-            <button id="chatModeSwitch" class="switch-btn" type="button" aria-label="Toggle saved chat mode">
+            <button id="chatModeSwitch" class="switch-btn" type="button" aria-label="Toggle saved chat mode" title="Enable or disable saved chat mode">
               <span class="switch-btn__thumb"></span>
             </button>
           </div>
@@ -59,9 +59,9 @@
             type="url"
             placeholder="https://chatgpt.com/c/..."
           />
-          <div class="mt-3 flex items-center gap-2">
-            <button id="saveChatUrlButton" class="primary-btn" type="button">Save Chat Link</button>
-            <span id="chatUrlStatus" class="subtle-text text-xs" aria-live="polite"></span>
+          <div class="mt-3 save-chat-actions">
+            <button id="saveChatUrlButton" class="primary-btn save-chat-btn" type="button" title="Save this chat URL">Save Chat Link</button>
+            <span id="chatUrlStatus" class="subtle-text text-xs save-chat-status" aria-live="polite"></span>
           </div>
         </div>
       </section>
@@ -73,7 +73,7 @@
             <p class="text-sm font-medium">Appearance</p>
             <p id="themeState" class="subtle-text text-xs">Light mode</p>
           </div>
-          <button id="themeSwitch" class="switch-btn" type="button" aria-label="Toggle theme">
+          <button id="themeSwitch" class="switch-btn" type="button" aria-label="Toggle theme" title="Switch light or dark theme">
             <span class="switch-btn__thumb"></span>
           </button>
         </div>

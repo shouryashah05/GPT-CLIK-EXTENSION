@@ -1,4 +1,4 @@
-import { STORAGE_KEYS, THEME_MODES } from "./shared/constants.js";
+import { STORAGE_KEYS, SUPPORTED_CHAT_HOSTS, THEME_MODES } from "./shared/constants.js";
 import { getPreferences, updatePreference } from "./shared/storage.js";
 import { initializeTheme, toggleTheme } from "./shared/theme.js";
 
@@ -13,11 +13,15 @@ const chatUrlInput = document.getElementById("chatUrlInput");
 const saveChatUrlButton = document.getElementById("saveChatUrlButton");
 const chatUrlStatus = document.getElementById("chatUrlStatus");
 
-const SUPPORTED_CHAT_HOSTS = new Set(["chatgpt.com", "chat.openai.com", "claude.ai", "gemini.google.com"]);
+const SUPPORTED_CHAT_HOSTS_SET = new Set(SUPPORTED_CHAT_HOSTS);
 
 let savedChatEnabled = false;
 
 document.addEventListener("DOMContentLoaded", async () => {
+  requestAnimationFrame(() => {
+    document.body.classList.add("is-ready");
+  });
+
   const theme = await initializeTheme();
   renderThemeState(theme);
   renderThemeIcon(theme);
@@ -44,11 +48,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   backButton.addEventListener("click", () => {
-    window.location.href = "popup.html";
+    navigateTo("popup.html");
   });
 
   homeLogoButton.addEventListener("click", () => {
-    window.location.href = "popup.html";
+    navigateTo("popup.html");
   });
 
   chatModeSwitch.addEventListener("click", async () => {
@@ -102,7 +106,7 @@ function renderSavedChatMode() {
 function parseSupportedChatUrl(rawValue) {
   try {
     const url = new URL((rawValue || "").trim());
-    if (!SUPPORTED_CHAT_HOSTS.has(url.hostname)) {
+    if (url.protocol !== "https:" || !SUPPORTED_CHAT_HOSTS_SET.has(url.hostname)) {
       return null;
     }
 
@@ -118,4 +122,11 @@ async function notifyMenuRefresh() {
   } catch (error) {
     // Ignore transient service worker wake-up errors.
   }
+}
+
+function navigateTo(url) {
+  document.body.classList.add("is-leaving");
+  window.setTimeout(() => {
+    window.location.href = url;
+  }, 120);
 }

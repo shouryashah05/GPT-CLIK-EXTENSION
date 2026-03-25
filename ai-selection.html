@@ -10,16 +10,32 @@
   <body class="page-shell p-4">
     <main class="w-full space-y-4">
       <header class="surface-card flex items-center justify-between p-3">
-        <button id="homeLogoButton" class="brand-home" type="button" aria-label="Go to main page">
-          <img src="icons/Group 8999.png" alt="CLIK-GPT" class="h-9 w-9 rounded-lg" />
+        <button id="homeLogoButton" class="brand-home" type="button" aria-label="Go to main page" title="Go to home">
+          <img
+            src="icons/Group 8999.png"
+            alt="CLIK-GPT"
+            class="h-9 w-9 rounded-xl object-cover"
+            width="36"
+            height="36"
+            loading="eager"
+            decoding="sync"
+          />
           <div class="min-w-0">
             <h1 class="text-base font-semibold tracking-tight">AI Selection</h1>
             <p class="subtle-text text-xs">Choose default assistant</p>
           </div>
         </button>
         <div class="flex items-center gap-2">
-          <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme"></button>
-          <button id="backButton" class="icon-btn" type="button" aria-label="Back to popup">
+          <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme" title="Toggle theme"></button>
+          <button id="settingsButton" class="icon-btn" type="button" aria-label="Open settings" title="Open settings">
+            <svg class="settings-material-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.6-.22l-2.39.96a7.08 7.08 0 0 0-1.63-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54a7.08 7.08 0 0 0-1.63.94l-2.39-.96a.5.5 0 0 0-.6.22L2.7 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.05.31-.08.63-.08.94s.03.63.08.94L2.82 14.52a.5.5 0 0 0-.12.64l1.92 3.32c.13.23.4.32.64.22l2.39-.96c.5.38 1.05.69 1.63.94l.36 2.54c.04.24.25.42.5.42h3.84c.25 0 .46-.18.5-.42l.36-2.54c.58-.25 1.13-.56 1.63-.94l2.39.96c.24.1.51.01.64-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+          <button id="backButton" class="icon-btn" type="button" aria-label="Back to popup" title="Back to popup">
             <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
           </button>
         </div>
@@ -29,17 +45,17 @@
         <p class="subtle-text mb-3 text-sm">Selected AI will be used by right-click and keyboard shortcut actions.</p>
 
         <div class="space-y-2" id="aiList">
-          <button class="ai-option" data-ai="chatgpt" type="button">
+          <button class="ai-option" data-ai="chatgpt" type="button" title="Set ChatGPT as default AI">
             <span class="ai-option__title">ChatGPT</span>
             <span class="ai-option__check" aria-hidden="true"></span>
           </button>
 
-          <button class="ai-option" data-ai="claude" type="button">
+          <button class="ai-option" data-ai="claude" type="button" title="Set Claude as default AI">
             <span class="ai-option__title">Claude</span>
             <span class="ai-option__check" aria-hidden="true"></span>
           </button>
 
-          <button class="ai-option" data-ai="gemini" type="button">
+          <button class="ai-option" data-ai="gemini" type="button" title="Set Gemini as default AI">
             <span class="ai-option__title">Gemini</span>
             <span class="ai-option__check" aria-hidden="true"></span>
           </button>

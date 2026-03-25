@@ -42,3 +42,23 @@ export const MODE_LABELS = {
   [INTERACTION_MODES.pasteEdit]: "Paste & Edit",
   [INTERACTION_MODES.showMenu]: "Show Menu"
 };
+
+export const SUPPORTED_CHAT_HOSTS = [
+  "chatgpt.com",
+  "chat.openai.com",
+  "claude.ai",
+  "gemini.google.com"
+];
+
+export const RESTRICTED_SOURCE_HOST_KEYWORDS = [
+  "accounts.",
+  "bank",
+  "billing",
+  "checkout",
+  "login",
+  "signin",
+  "auth",
+  "admin",
+  "webmail",
+  "mail."
+];
