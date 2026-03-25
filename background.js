@@ -11,17 +11,17 @@ import { ensureDefaults, getPreferences, updatePreference } from "./shared/stora
 const CONTEXT_SELECTION = ["selection"];
 
 const MENU_IDS = {
-  singleAction: "clikgpt_action",
-  parent: "clikgpt_parent",
-  showInstant: "clikgpt_show_instant",
-  showPasteEdit: "clikgpt_show_paste_edit",
-  chatgpt: "clikgpt_ai_chatgpt",
-  claude: "clikgpt_ai_claude",
-  gemini: "clikgpt_ai_gemini"
+  singleAction: "gptclik_action",
+  parent: "gptclik_parent",
+  showInstant: "gptclik_show_instant",
+  showPasteEdit: "gptclik_show_paste_edit",
+  chatgpt: "gptclik_ai_chatgpt",
+  claude: "gptclik_ai_claude",
+  gemini: "gptclik_ai_gemini"
 };
 
-const MESSAGE_TYPE_INJECT = "CLIK_GPT_INJECT";
-const MESSAGE_TYPE_REFRESH_MENUS = "CLIK_GPT_REFRESH_MENUS";
+const MESSAGE_TYPE_INJECT = "GPT_CLIK_INJECT";
+const MESSAGE_TYPE_REFRESH_MENUS = "GPT_CLIK_REFRESH_MENUS";
 
 let contextMenuRebuildQueue = Promise.resolve();
 
@@ -109,7 +109,7 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
 });
 
 chrome.commands.onCommand.addListener(async (commandName) => {
-  if (commandName !== "run-clik-gpt") {
+  if (commandName !== "run-gpt-clik") {
     return;
   }
 
@@ -140,7 +140,7 @@ async function rebuildContextMenus(preferences) {
   if (isSavedChatModeEnabled(preferences)) {
     await createContextMenu({
       id: MENU_IDS.singleAction,
-      title: "CLIK-GPT: Send to saved chat",
+      title: "GPT-CLIK: Send to saved chat",
       contexts: CONTEXT_SELECTION
     });
 
@@ -155,7 +155,7 @@ async function rebuildContextMenus(preferences) {
 
     await createContextMenu({
       id: MENU_IDS.parent,
-      title: "CLIK-GPT",
+      title: "GPT-CLIK",
       contexts: CONTEXT_SELECTION
     });
 
@@ -177,7 +177,7 @@ async function rebuildContextMenus(preferences) {
   }
 
   const selectedAI = preferences[STORAGE_KEYS.selectedAI];
-  const title = `CLIK-GPT: ${MODE_LABELS[selectedMode]} in ${AI_LABELS[selectedAI]}`;
+  const title = `GPT-CLIK: ${MODE_LABELS[selectedMode]} in ${AI_LABELS[selectedAI]}`;
 
   await createContextMenu({
     id: MENU_IDS.singleAction,

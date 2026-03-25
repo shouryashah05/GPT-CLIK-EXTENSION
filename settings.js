@@ -118,7 +118,7 @@ function parseSupportedChatUrl(rawValue) {
 
 async function notifyMenuRefresh() {
   try {
-    await chrome.runtime.sendMessage({ type: "CLIK_GPT_REFRESH_MENUS" });
+    await chrome.runtime.sendMessage({ type: "GPT_CLIK_REFRESH_MENUS" });
   } catch (error) {
     // Ignore transient service worker wake-up errors.
   }

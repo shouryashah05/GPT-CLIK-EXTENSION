@@ -13,15 +13,15 @@ export function getAiTarget(provider) {
 }
 
 export function contextMenuItemToProvider(menuItemId) {
-  if (menuItemId === "clikgpt_ai_chatgpt") {
+  if (menuItemId === "gptclik_ai_chatgpt") {
     return AI_PROVIDERS.chatgpt;
   }
 
-  if (menuItemId === "clikgpt_ai_claude") {
+  if (menuItemId === "gptclik_ai_claude") {
     return AI_PROVIDERS.claude;
   }
 
-  if (menuItemId === "clikgpt_ai_gemini") {
+  if (menuItemId === "gptclik_ai_gemini") {
     return AI_PROVIDERS.gemini;
   }
 

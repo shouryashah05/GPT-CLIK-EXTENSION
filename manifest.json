@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "CLIK-GPT",
+  "name": "GPT-CLIK",
   "version": "2.0.0",
   "description": "Send selected text to ChatGPT, Claude, or Gemini from your browser.",
   "minimum_chrome_version": "114",
@@ -22,7 +22,7 @@
     "128": "icons/Group 8999.png"
   },
   "action": {
-    "default_title": "CLIK-GPT",
+    "default_title": "GPT-CLIK",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/Group 8999.png",
@@ -39,12 +39,12 @@
     "open_in_tab": true
   },
   "commands": {
-    "run-clik-gpt": {
+    "run-gpt-clik": {
       "suggested_key": {
         "default": "Ctrl+Shift+L",
         "mac": "Command+Shift+L"
       },
-      "description": "Send current selected text using CLIK-GPT"
+      "description": "Send current selected text using GPT-CLIK"
     }
   },
   "content_scripts": [
