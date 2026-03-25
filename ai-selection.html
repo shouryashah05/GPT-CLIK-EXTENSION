@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLIK-GPT | AI Selection</title>
+    <link rel="stylesheet" href="tailwind.min.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body class="page-shell p-4">
+    <main class="w-full space-y-4">
+      <header class="surface-card flex items-center justify-between p-3">
+        <button id="homeLogoButton" class="brand-home" type="button" aria-label="Go to main page">
+          <img src="icons/Group 8999.png" alt="CLIK-GPT" class="h-9 w-9 rounded-lg" />
+          <div class="min-w-0">
+            <h1 class="text-base font-semibold tracking-tight">AI Selection</h1>
+            <p class="subtle-text text-xs">Choose default assistant</p>
+          </div>
+        </button>
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme"></button>
+          <button id="backButton" class="icon-btn" type="button" aria-label="Back to popup">
+            <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="surface-card p-4">
+        <p class="subtle-text mb-3 text-sm">Selected AI will be used by right-click and keyboard shortcut actions.</p>
+
+        <div class="space-y-2" id="aiList">
+          <button class="ai-option" data-ai="chatgpt" type="button">
+            <span class="ai-option__title">ChatGPT</span>
+            <span class="ai-option__check" aria-hidden="true"></span>
+          </button>
+
+          <button class="ai-option" data-ai="claude" type="button">
+            <span class="ai-option__title">Claude</span>
+            <span class="ai-option__check" aria-hidden="true"></span>
+          </button>
+
+          <button class="ai-option" data-ai="gemini" type="button">
+            <span class="ai-option__title">Gemini</span>
+            <span class="ai-option__check" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <p class="subtle-text mt-4 text-xs" id="selectionState" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script type="module" src="ai-selection.js"></script>
+  </body>
+</html>

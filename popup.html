@@ -1,44 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GPT Extension</title>
-  <link rel="stylesheet" href="popup.css">
-  <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
-</head>
-<body>
-  <div class="container">
-    <div class="headercombo">
-      <div class="logo"><img src="icons/Group 8999.png" alt=""></div>
-      <h1>CLIK-GPT</h1>
-    </div>
-    <div class="feature-toggle">
-      <p>Choose Text Handling Mode:</p>
-      <label>
-        <input type="radio" name="queryMode" value="direct" checked> Instant Search
-      </label>
-      <label>
-        <input type="radio" name="queryMode" value="inject"> Paste & Edit
-      </label>
-      <button id="applyButton" style="display: none;">Apply</button>
-    </div>
-    <div class="buttons">
-      <a href="https://github.com/shouryashah05/GPT-CLIK-EXTENSION" target="_blank" class="github-repo">
-        <img src="icons/logo.png" alt=""> Github Repo
-      </a>
-      <a href="https://chat.openai.com" target="_blank" class="open-gpt">
-        <img src="icons/chatgpt.png" alt=""> Open GPT
-      </a>
-    </div>
-    <div class="dropdown-toggle">
-      <label>
-        <input type="checkbox" id="dropdownCheckbox">
-        <span></span> Text Handling Drop-down Menu
-      </label>
-      <button id="dropdownApplyButton" style="display: none;">Apply</button>
-    </div>
-  </div>
-  <script src="popup.js"></script>
-</body>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLIK-GPT</title>
+    <link rel="stylesheet" href="tailwind.min.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body class="popup-shell p-4">
+    <main class="space-y-4">
+      <header class="surface-card flex items-center justify-between p-3">
+        <button id="homeLogoButton" class="brand-home" type="button" aria-label="Go to main page">
+          <img src="icons/Group 8999.png" alt="CLIK-GPT" class="h-9 w-9 rounded-xl" />
+          <div>
+            <h1 class="text-base font-semibold tracking-tight">CLIK-GPT</h1>
+            
+          </div>
+        </button>
+
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme"></button>
+          <button id="settingsButton" class="icon-btn" type="button" aria-label="Open settings">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="surface-card p-4">
+        <div class="flex items-center justify-between">
+          <h2 class="subtle-text text-sm font-semibold uppercase tracking-wide">Right-click behavior</h2>
+          <span class="subtle-text text-xs" id="modeLabel"></span>
+        </div>
+
+        <div class="mt-3 space-y-2" id="modeGroup" role="group" aria-label="Choose right click behavior">
+          <button class="segment-btn" data-mode="instant" type="button">
+            <span class="segment-btn__title">Instant Ask</span>
+
+          </button>
+
+          <button class="segment-btn" data-mode="paste_edit" type="button">
+            <span class="segment-btn__title">Paste &amp; Edit</span>
+           
+          </button>
+
+          <button class="segment-btn" data-mode="show_menu" type="button">
+            <span class="segment-btn__title">Show Menu</span>
+           
+          </button>
+        </div>
+      </section>
+
+      <section class="surface-card p-4">
+        <button id="aiSelectionButton" class="ai-card" type="button" aria-label="Open AI selection page">
+          <span>
+            <span class="subtle-text block text-xs uppercase tracking-wide">Selected AI</span>
+            <span id="selectedAiLabel" class="mt-1 block text-sm font-semibold"></span>
+          </span>
+          <span class="ai-card__arrow" aria-hidden="true"><i class="fa-solid fa-angle-right"></i></span>
+        </button>
+      </section>
+    </main>
+
+    <script type="module" src="popup.js"></script>
+  </body>
 </html>

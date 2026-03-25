@@ -1,13 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "GPT Extension",
-  "version": "1.0",
-  "description": "Search ChatGPT for selected text",
+  "name": "CLIK-GPT",
+  "version": "2.0.0",
+  "description": "Send selected text to ChatGPT, Claude, or Gemini from your browser.",
+  "minimum_chrome_version": "114",
   "permissions": [
-    "contextMenus", 
-    "scripting", 
-    "storage",
-    "tabs"
+    "contextMenus",
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*"
   ],
   "icons": {
     "16": "icons/Group 8999.png",
@@ -15,18 +22,43 @@
     "128": "icons/Group 8999.png"
   },
   "action": {
+    "default_title": "CLIK-GPT",
+    "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/Group 8999.png",
       "48": "icons/Group 8999.png",
       "128": "icons/Group 8999.png"
-    },
-    "default_popup": "popup.html"
+    }
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
-  "host_permissions": [
-    "https://chat.openai.com/*",
-    "https://chatgpt.com/*"
+  "options_ui": {
+    "page": "settings.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "run-clik-gpt": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Send current selected text using CLIK-GPT"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
   ]
 }

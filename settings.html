@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CLIK-GPT | Settings</title>
+    <link rel="stylesheet" href="tailwind.min.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body class="page-shell p-4">
+    <main class="w-full space-y-4">
+      <header class="surface-card flex items-center justify-between p-3">
+        <button id="homeLogoButton" class="brand-home" type="button" aria-label="Go to main page">
+          <img src="icons/Group 8999.png" alt="CLIK-GPT" class="h-9 w-9 rounded-lg" />
+          <div class="min-w-0">
+            <h1 class="text-base font-semibold tracking-tight">Settings</h1>
+            <p class="subtle-text text-xs">Minimal controls</p>
+          </div>
+        </button>
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" class="icon-btn" type="button" aria-label="Toggle theme"></button>
+          <button id="backButton" class="icon-btn" type="button" aria-label="Back to popup">
+            <i class="fa-solid fa-angle-left" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="surface-card p-4">
+        <h2 class="subtle-text text-sm font-semibold uppercase tracking-wide">Keyboard Shortcut</h2>
+        <div class="mt-3 rounded-xl border border-slate-300/70 bg-white/80 p-3 shadow-sm dark-surface">
+          <p class="text-sm font-medium">Current shortcut</p>
+          <p class="mt-1 text-base font-semibold">Ctrl + Shift + L <span class="subtle-text">(Windows)</span></p>
+          <p class="text-base font-semibold">Command + Shift + L <span class="subtle-text">(macOS)</span></p>
+        </div>
+
+        <button id="shortcutButton" class="primary-btn mt-3" type="button">Change Shortcut</button>
+        <p class="subtle-text mt-2 text-xs">
+          Due to Chrome security policies, shortcuts must be configured via Chrome settings.
+        </p>
+      </section>
+
+      <section class="surface-card p-4">
+        <h2 class="subtle-text text-sm font-semibold uppercase tracking-wide">Saved Chat</h2>
+        <div class="mt-3 rounded-xl border border-slate-300/70 bg-white/80 p-3 shadow-sm dark-surface">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <p class="text-sm font-medium">Use a specific chat URL</p>
+              <p class="subtle-text text-xs">When enabled, CLIK-GPT always uses this chat thread.</p>
+            </div>
+            <button id="chatModeSwitch" class="switch-btn" type="button" aria-label="Toggle saved chat mode">
+              <span class="switch-btn__thumb"></span>
+            </button>
+          </div>
+
+          <label for="chatUrlInput" class="subtle-text mt-3 block text-xs">Chat link</label>
+          <input
+            id="chatUrlInput"
+            class="settings-input mt-1 w-full"
+            type="url"
+            placeholder="https://chatgpt.com/c/..."
+          />
+          <div class="mt-3 flex items-center gap-2">
+            <button id="saveChatUrlButton" class="primary-btn" type="button">Save Chat Link</button>
+            <span id="chatUrlStatus" class="subtle-text text-xs" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface-card p-4">
+        <h2 class="subtle-text text-sm font-semibold uppercase tracking-wide">Theme</h2>
+        <div class="mt-3 flex items-center justify-between rounded-xl border border-slate-300/70 bg-white/80 px-3 py-2 dark-surface">
+          <div>
+            <p class="text-sm font-medium">Appearance</p>
+            <p id="themeState" class="subtle-text text-xs">Light mode</p>
+          </div>
+          <button id="themeSwitch" class="switch-btn" type="button" aria-label="Toggle theme">
+            <span class="switch-btn__thumb"></span>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="settings.js"></script>
+  </body>
+</html>
